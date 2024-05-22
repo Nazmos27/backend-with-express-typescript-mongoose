@@ -65,35 +65,60 @@ const fetchSingleProductFromDB = async (req: Request, res: Response) => {
   }
 };
 
-const updateSingleProduct = async (req : Request, res : Response) => {
+const updateSingleProduct = async (req: Request, res: Response) => {
   try {
-    const updatedData = req.body
-    const {error , value} = productValidationSchema.validate(updatedData)
-    if(error){
+    const updatedData = req.body;
+    const { error, value } = productValidationSchema.validate(updatedData);
+    if (error) {
       return res.status(404).json({
         success: false,
         message: "An error occured from updateSingleProduct",
         errorLog: error.details,
-      })
+      });
     }
-    const result = await ProductServices.putProductFromDB(req.params.productId,value)
+    const result = await ProductServices.putProductFromDB(
+      req.params.productId,
+      value
+    );
     return res.status(200).json({
       success: true,
       message: "Product updated successfully!",
-      data: result,
-    })
+      data: value,
+    });
   } catch (err) {
     return res.status(404).json({
       success: false,
       message: "An error occured from updateSingleProduct",
       errorLog: err,
-    })
+    });
   }
-}
+};
+
+const deleteSingleProduct = async (req: Request, res: Response) => {
+  try {
+    const result = await ProductServices.deleteProductFromDB(
+      req.params.productId
+    );
+    if (result.deletedCount === 1) {
+      return res.status(200).json({
+        success: true,
+        message: "Product deleted successfully!",
+        data: null,
+      });
+    }
+  } catch (err) {
+    return res.status(404).json({
+      success: false,
+      message: "An error occured from deleteSingleProduct",
+      errorLog: err,
+    });
+  }
+};
 
 export const ProductControllers = {
   postProductIntoDB,
   fetchProductFromDB,
   fetchSingleProductFromDB,
   updateSingleProduct,
+  deleteSingleProduct,
 };
