@@ -13,7 +13,15 @@ app.use(cors());
 app.use("/api", ProductRoutes, OrderRoutes);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("hello world!");
+  res.send(
+    "Hello! This is a backend of ecommerce type website consisting of express, typescript & mongoose\n Go to '/api/products' for products, '/api/orders' for orders"
+  );
+});
+app.all("*", (req: Request, res: Response) => {
+  res.status(404).json({
+    success: false,
+    message: "Route not found",
+  });
 });
 
 export default app;

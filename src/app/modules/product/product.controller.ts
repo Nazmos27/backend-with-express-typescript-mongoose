@@ -19,7 +19,7 @@ const postProductIntoDB = async (req: Request, res: Response) => {
     return res.status(200).json({
       success: true,
       message: "Product created successfully!",
-      data: result,
+      data: productData,
     });
   } catch (err) {
     res.status(404).json({
@@ -34,11 +34,11 @@ const fetchProductFromDB = async (req: Request, res: Response) => {
   try {
     if (req.query.searchTerm) {
       const result = await ProductServices.getProductFromDB(
-        req.query.searchTerm,
+        req.query.searchTerm
       );
       return res.status(200).json({
         success: true,
-        message: "Products fetched successfully!",
+        message: `Products matching search term '${req.query.searcTerm}' fetched successfully!`,
         data: result,
       });
     } else {
@@ -64,7 +64,7 @@ const fetchSingleProductFromDB = async (req: Request, res: Response) => {
     const result = await ProductServices.getSingleProductFromDB(productId);
     return res.status(200).json({
       success: true,
-      message: "Products fetched successfully!",
+      message: "Product fetched successfully!",
       data: result,
     });
   } catch (err) {
@@ -89,7 +89,7 @@ const updateSingleProduct = async (req: Request, res: Response) => {
     }
     const result = await ProductServices.putProductFromDB(
       req.params.productId,
-      value,
+      value
     );
     return res.status(200).json({
       success: true,
@@ -108,7 +108,7 @@ const updateSingleProduct = async (req: Request, res: Response) => {
 const deleteSingleProduct = async (req: Request, res: Response) => {
   try {
     const result = await ProductServices.deleteProductFromDB(
-      req.params.productId,
+      req.params.productId
     );
     if (result.deletedCount === 1) {
       return res.status(200).json({
