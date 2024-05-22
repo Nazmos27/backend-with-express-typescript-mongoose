@@ -27,6 +27,33 @@ const postOrderIntoDB = async (req: Request, res: Response) => {
   }
 };
 
+const getOrderFromDB = async (req: Request, res: Response) => {
+  try {
+    if (req.query) {
+      const result = await OrderServices.getOrderFromDB(req.query.email);
+      return res.status(200).json({
+        success: true,
+        message: "Order fetched successfully!",
+        data: result,
+      });
+    } else {
+      const result = await OrderServices.getOrderFromDB();
+      return res.status(200).json({
+        success: true,
+        message: "Order fetched successfully!",
+        data: result,
+      });
+    }
+  } catch (err) {
+    return res.status(404).json({
+      success: false,
+      message: "error from getOrderFromDB",
+      errorLog: err,
+    });
+  }
+};
+
 export const OrderController = {
   postOrderIntoDB,
+  getOrderFromDB,
 };
