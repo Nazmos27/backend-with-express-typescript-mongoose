@@ -34,7 +34,7 @@ const fetchProductFromDB = async (req: Request, res: Response) => {
   try {
     if (req.query.searchTerm) {
       const result = await ProductServices.getProductFromDB(
-        req.query.searchTerm
+        req.query.searchTerm,
       );
       return res.status(200).json({
         success: true,
@@ -89,7 +89,7 @@ const updateSingleProduct = async (req: Request, res: Response) => {
     }
     const result = await ProductServices.putProductFromDB(
       req.params.productId,
-      value
+      value,
     );
     return res.status(200).json({
       success: true,
@@ -108,7 +108,7 @@ const updateSingleProduct = async (req: Request, res: Response) => {
 const deleteSingleProduct = async (req: Request, res: Response) => {
   try {
     const result = await ProductServices.deleteProductFromDB(
-      req.params.productId
+      req.params.productId,
     );
     if (result.deletedCount === 1) {
       return res.status(200).json({

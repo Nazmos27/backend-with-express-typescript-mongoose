@@ -1,9 +1,19 @@
+export type Inventory = {
+  quantity: number;
+  inStock: boolean;
+};
+
+export type Variants = {
+  type: string;
+  value: string;
+};
+
 export type Product = {
-    name : string,
-    description : string,
-    price : number,
-    category : string,
-    tags : string[],
-    variants : object[],
-    inventory: object
-}
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  tags: string[];
+  variants: Variants[];
+  inventory: Inventory;
+};

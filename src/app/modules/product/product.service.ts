@@ -17,7 +17,7 @@ const getProductFromDB = async (searchTerm?: unknown) => {
           { tags: { $elemMatch: { $regex: searchTerm, $options: "i" } } },
         ],
       },
-      { _id: 0 }
+      { _id: 0 },
     );
     return result;
   } else {
@@ -35,7 +35,7 @@ const putProductFromDB = async (id: string, body: object) => {
   const result = await ProductModel.updateOne(
     { _id: id },
     { $set: body },
-    { upsert: true }
+    { upsert: true },
   );
   return result;
 };

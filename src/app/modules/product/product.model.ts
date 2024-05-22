@@ -1,38 +1,45 @@
 import { Schema, model } from "mongoose";
-import { Product } from "./product.interface";
+import { Inventory, Product, Variants } from "./product.interface";
+
+const inventoryShema = new Schema<Inventory>({
+  quantity: { type: Number, required: true },
+  inStock: { type: Boolean, required: true },
+});
+
+const variantsSchema = new Schema<Variants>({
+  type: { type: String, required: true },
+  value: { type: String, required: true },
+});
 
 const productSchema = new Schema<Product>({
-    name : {
-        type : String,
-        required : true
-    },
-    description: {
-        type : String,
-        required : true
-    },
-    price : {
-        type : Number,
-        required : true
-    },
-    category : {
-        type : String,
-        required : true
-    },
-    tags : {
-        type : [String],
-        required : true
-    },
-    variants: {
-        type : [Object],
-        required : true
-    },
-    inventory : {
-        type : Object,
-        required : true
-    }
+  name: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
+  tags: {
+    type: [String],
+    required: true,
+  },
+  variants: {
+    type: [variantsSchema],
+    required: true,
+  },
+  inventory: {
+    type: inventoryShema,
+    required: true,
+  },
+});
 
-
-})
-
-
-export const ProductModel = model<Product>('all-products',productSchema)
+export const ProductModel = model<Product>("all-products", productSchema);
