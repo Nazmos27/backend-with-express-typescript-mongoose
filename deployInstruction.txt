@@ -1,8 +1,0 @@
-deploy through vercel
----Vercel CLI
-    -npm i -g vercel (first time only)
-    -vercel -v (checking is vercel exists)
-    -vercel login (login with github)
-    -vercel --prod
-    -inspect given link (https://vercel.com/nazmos27s-projects/backend-with-express-typescript-mongoose/9ms2sxxYtA8gRrqtxKX4RczWsSGb)
-    -go to "project" tab and there u will get vercel deploy link that work everywhere
