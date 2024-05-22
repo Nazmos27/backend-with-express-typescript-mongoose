@@ -9,4 +9,6 @@ router.post('/products',ProductControllers.postProductIntoDB)
 
 router.get('/products',ProductControllers.fetchProductFromDB)
 
+router.get('/products/:productId',ProductControllers.fetchSingleProductFromDB)
+
 export const ProductRoutes = router

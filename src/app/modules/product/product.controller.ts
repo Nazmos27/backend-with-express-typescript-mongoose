@@ -30,24 +30,43 @@ const postProductIntoDB = async (req: Request, res: Response) => {
   }
 };
 
-const fetchProductFromDB = async (req : Request, res : Response) => {
+const fetchProductFromDB = async (req: Request, res: Response) => {
   try {
-    const result = await ProductServices.getProductFromDB()
+    const result = await ProductServices.getProductFromDB();
     return res.status(200).json({
       success: true,
-      message: "Product fetched successfully!",
+      message: "Products fetched successfully!",
       data: result,
-    })
+    });
   } catch (err) {
     return res.status(404).json({
       success: false,
       message: "An error occured from fetchProductFromDB",
-      errorLog : err
-    })
+      errorLog: err,
+    });
   }
-}
+};
+
+const fetchSingleProductFromDB = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const result = await ProductServices.getSingleProductFromDB(productId);
+    return res.status(200).json({
+      success: true,
+      message: "Products fetched successfully!",
+      data: result,
+    });
+  } catch (err) {
+    return res.status(404).json({
+      success: false,
+      message: "An error occured from fetchProductFromDB",
+      errorLog: err,
+    });
+  }
+};
 
 export const ProductControllers = {
   postProductIntoDB,
   fetchProductFromDB,
+  fetchSingleProductFromDB,
 };
