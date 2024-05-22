@@ -32,12 +32,23 @@ const postProductIntoDB = async (req: Request, res: Response) => {
 
 const fetchProductFromDB = async (req: Request, res: Response) => {
   try {
-    const result = await ProductServices.getProductFromDB();
-    return res.status(200).json({
-      success: true,
-      message: "Products fetched successfully!",
-      data: result,
-    });
+    if (req.query.searchTerm) {
+      const result = await ProductServices.getProductFromDB(
+        req.query.searchTerm
+      );
+      return res.status(200).json({
+        success: true,
+        message: "Products fetched successfully!",
+        data: result,
+      });
+    } else {
+      const result = await ProductServices.getProductFromDB();
+      return res.status(200).json({
+        success: true,
+        message: "Products fetched successfully!",
+        data: result,
+      });
+    }
   } catch (err) {
     return res.status(404).json({
       success: false,
