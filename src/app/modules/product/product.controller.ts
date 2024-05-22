@@ -10,7 +10,7 @@ const postProductIntoDB = async (req: Request, res: Response) => {
       return res.status(404).json({
         success: false,
         message: "An error occured from validation part, postProductIntoDB",
-        errorLog: error,
+        errorLog: error.details,
       });
     }
 
@@ -65,8 +65,35 @@ const fetchSingleProductFromDB = async (req: Request, res: Response) => {
   }
 };
 
+const updateSingleProduct = async (req : Request, res : Response) => {
+  try {
+    const updatedData = req.body
+    const {error , value} = productValidationSchema.validate(updatedData)
+    if(error){
+      return res.status(404).json({
+        success: false,
+        message: "An error occured from updateSingleProduct",
+        errorLog: error.details,
+      })
+    }
+    const result = await ProductServices.putProductFromDB(req.params.productId,value)
+    return res.status(200).json({
+      success: true,
+      message: "Product updated successfully!",
+      data: result,
+    })
+  } catch (err) {
+    return res.status(404).json({
+      success: false,
+      message: "An error occured from updateSingleProduct",
+      errorLog: err,
+    })
+  }
+}
+
 export const ProductControllers = {
   postProductIntoDB,
   fetchProductFromDB,
   fetchSingleProductFromDB,
+  updateSingleProduct,
 };

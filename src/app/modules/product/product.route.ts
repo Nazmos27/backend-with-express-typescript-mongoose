@@ -11,4 +11,6 @@ router.get('/products',ProductControllers.fetchProductFromDB)
 
 router.get('/products/:productId',ProductControllers.fetchSingleProductFromDB)
 
+router.put('/products/:productId',ProductControllers.updateSingleProduct)
+
 export const ProductRoutes = router
