@@ -30,6 +30,24 @@ const postProductIntoDB = async (req: Request, res: Response) => {
   }
 };
 
+const fetchProductFromDB = async (req : Request, res : Response) => {
+  try {
+    const result = await ProductServices.getProductFromDB()
+    return res.status(200).json({
+      success: true,
+      message: "Product fetched successfully!",
+      data: result,
+    })
+  } catch (err) {
+    return res.status(404).json({
+      success: false,
+      message: "An error occured from fetchProductFromDB",
+      errorLog : err
+    })
+  }
+}
+
 export const ProductControllers = {
   postProductIntoDB,
+  fetchProductFromDB,
 };

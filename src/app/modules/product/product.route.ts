@@ -7,4 +7,6 @@ const router = express.Router()
 
 router.post('/products',ProductControllers.postProductIntoDB)
 
+router.get('/products',ProductControllers.fetchProductFromDB)
+
 export const ProductRoutes = router
