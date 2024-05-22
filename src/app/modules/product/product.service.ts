@@ -8,17 +8,20 @@ const createProductIntoDB = async (product: Product) => {
 
 const getProductFromDB = async (searchTerm?: unknown) => {
   if (searchTerm) {
-    const result = await ProductModel.find({
-      $or: [
-        { name: { $regex: searchTerm, $options: "i" } },
-        { description: { $regex: searchTerm, $options: "i" } },
-        { category: { $regex: searchTerm, $options: "i" } },
-        { tags: { $elemMatch: { $regex: searchTerm, $options: "i" } } },
-      ],
-    });
+    const result = await ProductModel.find(
+      {
+        $or: [
+          { name: { $regex: searchTerm, $options: "i" } },
+          { description: { $regex: searchTerm, $options: "i" } },
+          { category: { $regex: searchTerm, $options: "i" } },
+          { tags: { $elemMatch: { $regex: searchTerm, $options: "i" } } },
+        ],
+      },
+      { _id: 0 }
+    );
     return result;
   } else {
-    const result = await ProductModel.find({});
+    const result = await ProductModel.find({}, { _id: 0 });
     return result;
   }
 };
